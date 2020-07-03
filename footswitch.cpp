@@ -23,19 +23,23 @@ void setup() {
 }
 
 void loop() {
+  // REC
   if (buttons[0]->update()) {
     if (buttons[0]->wasPressed()) {
       usbMIDI.sendSysEx(6, (uint8_t*)"\xf0\x7f\x7f\x06\x06\xf7", true); // Record
     }
   }
 
+  // PLAY START
   if (buttons[1]->update()) {
     if (buttons[1]->wasPressed()) {
+      usbMIDI.sendSysEx(6, (uint8_t*)"\xf0\x7f\x7f\x06\x01\xf7", true); // Stop
       usbMIDI.sendSysEx(12, (uint8_t*)"\xf0\x7f\x00\x06\x44\x06\x01\x00\x00\x00\x00\xf7", true); // Reset
       usbMIDI.sendSysEx(6, (uint8_t*)"\xf0\x7f\x7f\x06\x02\xf7", true); // Play
     }
   }
 
+  // STOP
   if (buttons[2]->update()) {
     if (buttons[2]->wasPressed()) {
       usbMIDI.sendSysEx(6, (uint8_t*)"\xf0\x7f\x7f\x06\x01\xf7", true); // Stop
@@ -45,6 +49,7 @@ void loop() {
     }
   }
 
+  // PLAY
   if (buttons[3]->update()) {
     if (buttons[3]->wasPressed()) {
       usbMIDI.sendSysEx(6, (uint8_t*)"\xf0\x7f\x7f\x06\x02\xf7", true); // Play
