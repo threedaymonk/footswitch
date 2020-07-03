@@ -1,4 +1,4 @@
-SRC_DIRS = vendor/cores/teensy vendor/Bounce2/src
+SRC_DIRS = vendor/cores/usb_midi vendor/cores/teensy vendor/Bounce2/src
 
 MCU = atmega32u4
 BOARD = TEENSY2
