@@ -31,7 +31,8 @@ void loop() {
 
   if (buttons[1]->update()) {
     if (buttons[1]->wasPressed()) {
-      usbMIDI.sendSysEx(6, (uint8_t*)"\xf0\x7f\x7f\x06\x03\xf7", true); // Deferred play
+      usbMIDI.sendSysEx(12, (uint8_t*)"\xf0\x7f\x00\x06\x44\x06\x01\x00\x00\x00\x00\xf7", true); // Reset
+      usbMIDI.sendSysEx(6, (uint8_t*)"\xf0\x7f\x7f\x06\x02\xf7", true); // Play
     }
   }
 
