@@ -1,0 +1,6 @@
+[submodule "vendor/cores"]
+	path = vendor/cores
+	url = https://github.com/PaulStoffregen/cores
+[submodule "vendor/Bounce2"]
+	path = vendor/Bounce2
+	url = https://github.com/thomasfredericks/Bounce2
