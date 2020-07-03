@@ -3,7 +3,6 @@ SRC_DIRS = vendor/cores/usb_midi vendor/cores/teensy vendor/Bounce2/src
 MCU = atmega32u4
 BOARD = TEENSY2
 
-DEFINES += '-DSTR_PRODUCT=L"MPC Footswitch"'
 DEFINES  = -DTEENSYDUINO=153
 DEFINES += -DARDUINO_ARCH_AVR
 DEFINES += -DARDUINO=10813

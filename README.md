@@ -30,8 +30,3 @@ To program the device
 Four footswitches share a common connection to ground (pin 0). The other
 terminal of each is connected to pins 0-3 respectively. The code can be adjusted
 for more or fewer switches.
-
-## Customisation
-
-The USB MIDI device ID can be set by redefining `STR_PRODUCT` in the Makefile.
-Run `make clean` followed by `make` after changing this.
