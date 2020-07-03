@@ -1,6 +1,7 @@
 SRC_DIRS = vendor/cores/teensy vendor/Bounce2/src
 
 MCU = atmega32u4
+BOARD = TEENSY2
 
 DEFINES += '-DSTR_PRODUCT=L"MPC Footswitch"'
 DEFINES  = -DTEENSYDUINO=153
@@ -40,7 +41,7 @@ payload.hex : payload.elf
 	$(OBJCOPY) -O ihex -R .eeprom $< $@
 
 program : payload.hex
-	teensy_loader_cli -mmcu=$(MCU) -w -v $<
+	teensy_loader_cli -mmcu=$(BOARD) -w -v $<
 
 clean :
 	rm -f *.elf *.eep *.hex $(OBJ) $(OBJ:.o=.d)
