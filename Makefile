@@ -42,7 +42,12 @@ payload.hex : payload.elf
 program : payload.hex
 	teensy_loader_cli -mmcu=$(BOARD) -w -v $<
 
-clean :
-	rm -f *.elf *.eep *.hex $(OBJ) $(OBJ:.o=.d)
+%.stl : %.scad
+	openscad -o $@ $<
 
-.PHONY : clean default program
+3d : hardware/teensy-2.0-holder.stl hardware/footswitch-washer.stl
+
+clean :
+	rm -f *.elf *.eep *.hex $(OBJ) $(OBJ:.o=.d) hardware/*.stl
+
+.PHONY : clean default program 3d

@@ -14,6 +14,7 @@ control an AKAI MPC X/Live/Live II/One/Touch.
 
 - avr-gcc
 - [teensy_loader_cli](https://github.com/PaulStoffregen/teensy_loader_cli)
+- OpenSCAD (if 3D printing the hardware)
 
 ## Build
 
@@ -30,3 +31,8 @@ To program the device
 Four footswitches share a common connection to ground (pin 0). The other
 terminal of each is connected to pins 0-3 respectively. The code can be adjusted
 for more or fewer switches.
+
+OpenSCAD models for washers and a bracket to hold the microcontroller are
+included in the `hardware` directory. To build the STL files:
+
+    make 3d
