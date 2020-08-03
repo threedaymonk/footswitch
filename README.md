@@ -3,6 +3,9 @@
 This implements a USB MIDI footswitch on a Teensy 2.0. It is configured to
 control an AKAI MPC X/Live/Live II/One/Touch.
 
+For pictures and details, see the [corresponding blog
+post](https://po-ru.com/2020/08/03/diy-usb-midi-footswitch).
+
 ## Features
 
 - Presses are debounced
