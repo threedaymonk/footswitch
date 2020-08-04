@@ -31,8 +31,8 @@ To program the device
 
 ## Physical design
 
-Four footswitches share a common connection to ground (pin 0). The other
-terminal of each is connected to pins 0-3 respectively. The code can be adjusted
+Four footswitches share a common connection to ground (pin 1). The other
+terminal of each is connected to B0-B3 (pins 2-5) respectively. The code can be adjusted
 for more or fewer switches.
 
 OpenSCAD models for washers and a bracket to hold the microcontroller are
