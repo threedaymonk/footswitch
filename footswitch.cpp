@@ -22,37 +22,44 @@ void setup() {
   digitalWrite(BOARD_LED, LOW);
 }
 
+void sendMMC(uint16_t length, uint8_t* msg) {
+  static uint8_t buffer[20] = { 0xf0, 0x7f, 0x7f, 0x06 };
+  memcpy(buffer + 4, msg, length);
+  buffer[length + 4] = 0xf7;
+  usbMIDI.sendSysEx(length + 5, buffer, true);
+}
+
 void loop() {
   // REC
   if (buttons[0]->update()) {
     if (buttons[0]->wasPressed()) {
-      usbMIDI.sendSysEx(6, (uint8_t*)"\xf0\x7f\x7f\x06\x06\xf7", true); // Record
+      sendMMC(1, (uint8_t*)"\x06"); // Record
     }
   }
 
   // PLAY START
   if (buttons[1]->update()) {
     if (buttons[1]->wasPressed()) {
-      usbMIDI.sendSysEx(6, (uint8_t*)"\xf0\x7f\x7f\x06\x01\xf7", true); // Stop
-      usbMIDI.sendSysEx(12, (uint8_t*)"\xf0\x7f\x00\x06\x44\x06\x01\x00\x00\x00\x00\xf7", true); // Reset
-      usbMIDI.sendSysEx(6, (uint8_t*)"\xf0\x7f\x7f\x06\x02\xf7", true); // Play
+      sendMMC(1, (uint8_t*)"\x01"); // Stop
+      sendMMC(7, (uint8_t*)"\x44\x06\x01\x00\x00\x00\x00"); // Locate zero
+      sendMMC(1, (uint8_t*)"\x02"); // Play
     }
   }
 
   // STOP
   if (buttons[2]->update()) {
     if (buttons[2]->wasPressed()) {
-      usbMIDI.sendSysEx(6, (uint8_t*)"\xf0\x7f\x7f\x06\x01\xf7", true); // Stop
+      sendMMC(1, (uint8_t*)"\x01"); // Stop
     }
     if (buttons[2]->wasLongPressed()) {
-      usbMIDI.sendSysEx(12, (uint8_t*)"\xf0\x7f\x00\x06\x44\x06\x01\x00\x00\x00\x00\xf7", true); // Reset
+      sendMMC(7, (uint8_t*)"\x44\x06\x01\x00\x00\x00\x00"); // Locate zero
     }
   }
 
   // PLAY
   if (buttons[3]->update()) {
     if (buttons[3]->wasPressed()) {
-      usbMIDI.sendSysEx(6, (uint8_t*)"\xf0\x7f\x7f\x06\x02\xf7", true); // Play
+      sendMMC(1, (uint8_t*)"\x02"); // Play
     }
   }
 
