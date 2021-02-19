@@ -41,7 +41,7 @@ void loop() {
   if (buttons[1]->update()) {
     if (buttons[1]->wasPressed()) {
       sendMMC(1, (uint8_t*)"\x01"); // Stop
-      sendMMC(7, (uint8_t*)"\x44\x06\x01\x00\x00\x00\x00"); // Locate zero
+      sendMMC(8, (uint8_t*)"\x44\x06\x01\x00\x00\x00\x00\x00"); // Locate zero
       sendMMC(1, (uint8_t*)"\x02"); // Play
     }
   }
@@ -52,7 +52,7 @@ void loop() {
       sendMMC(1, (uint8_t*)"\x01"); // Stop
     }
     if (buttons[2]->wasLongPressed()) {
-      sendMMC(7, (uint8_t*)"\x44\x06\x01\x00\x00\x00\x00"); // Locate zero
+      sendMMC(8, (uint8_t*)"\x44\x06\x01\x00\x00\x00\x00\x00"); // Locate zero
     }
   }
 
