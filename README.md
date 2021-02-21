@@ -35,6 +35,8 @@ Four footswitches share a common connection to ground (pin 1). The other
 terminal of each is connected to B0-B3 (pins 2-5) respectively. The code can be adjusted
 for more or fewer switches.
 
+<img src="./hardware/footswitch.svg" alt="Switch wiring schematic" width=500>
+
 OpenSCAD models for washers and a bracket to hold the microcontroller are
 included in the `hardware` directory. To build the STL files:
 
