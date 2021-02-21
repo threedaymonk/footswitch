@@ -55,7 +55,26 @@ Four footswitches share a common connection to ground (pin 1). The other
 terminal of each is connected to B0-B3 (pins 2-5) respectively. The code can be adjusted
 for more or fewer switches.
 
+### BOM
+
+- Hammond 1590XX enclosure
+- 4 momentary push-to make footswitches
+- Teensy 2.0
+- Panel-mount USB B socket to USB A socket
+- Short USB A to micro USB cable
+
+You'll also need wire, and if you use the 3D-printed bracket below, sticky
+fixers and a thin cable tie. If you're not using the bracket, you'll have to
+figure out your own method of mounting the Teensy.
+
+It's possible to skip the micro USB cable and solder the USB connection
+directly to the Teensy.
+
+### Switch connections
+
 <img src="./hardware/footswitch.svg" alt="Switch wiring schematic" width=500>
+
+### 3D-printed components
 
 OpenSCAD models for washers and a bracket to hold the microcontroller are
 included in the `hardware` directory. To build the STL files:
