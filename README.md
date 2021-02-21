@@ -13,13 +13,17 @@ post](https://po-ru.com/2020/08/03/diy-usb-midi-footswitch).
   For example, the stop button will send the reset command when held for longer
   than 1/4 second.
 
-## Prerequisites
+## Software
+
+### Compiling and uploading with Make
+
+#### Prerequisites
 
 - avr-gcc
 - [teensy_loader_cli](https://github.com/PaulStoffregen/teensy_loader_cli)
 - OpenSCAD (if 3D printing the hardware)
 
-## Build
+#### Build
 
 To build the code
 
@@ -29,7 +33,23 @@ To program the device
 
     make program
 
-## Physical design
+### Compiling and uploading with the Arduino IDE
+
+#### Prerequisites
+
+- [Arduino IDE](https://www.arduino.cc/en/software)
+- [Teensyduino](https://www.pjrc.com/teensy/td_download.html)
+
+#### Build
+
+Open `footswitch.ino`. Don't worry that it's empty: the Arduino IDE just
+compiles everything.
+
+Set the board type to "Teensy 2.0" and the USB type to MIDI.
+
+Attach the Teensy via USB and click the upload button.
+
+## Hardware
 
 Four footswitches share a common connection to ground (pin 1). The other
 terminal of each is connected to B0-B3 (pins 2-5) respectively. The code can be adjusted
