@@ -1,13 +1,18 @@
 #include <Arduino.h>
+#include <Adafruit_TinyUSB.h>
+#include <MIDI.h>
 #include "Button.h"
 
-#define BUTTON_1 PIN_B0
-#define BUTTON_2 PIN_B1
-#define BUTTON_3 PIN_B2
-#define BUTTON_4 PIN_B3
-#define BOARD_LED PIN_D6
+#define BUTTON_1 0
+#define BUTTON_2 1
+#define BUTTON_3 2
+#define BUTTON_4 3
+#define BOARD_LED 25
 
 Button *buttons[4];
+
+Adafruit_USBD_MIDI usb_midi;
+MIDI_CREATE_INSTANCE(Adafruit_USBD_MIDI, usb_midi, MIDI);
 
 void setup() {
   buttons[0] = new Button(BUTTON_1);
@@ -20,16 +25,20 @@ void setup() {
   digitalWrite(BOARD_LED, LOW);  delay(200);
   digitalWrite(BOARD_LED, HIGH); delay(400);
   digitalWrite(BOARD_LED, LOW);
+
+  MIDI.begin(MIDI_CHANNEL_OMNI);
 }
 
 void sendMMC(uint16_t length, uint8_t* msg) {
   static uint8_t buffer[20] = { 0xf0, 0x7f, 0x7f, 0x06 };
   memcpy(buffer + 4, msg, length);
   buffer[length + 4] = 0xf7;
-  usbMIDI.sendSysEx(length + 5, buffer, true);
+  MIDI.sendSysEx(length + 5, buffer, true);
 }
 
 void loop() {
+  MIDI.read();
+
   // REC
   if (buttons[0]->update()) {
     if (buttons[0]->wasPressed()) {
@@ -62,6 +71,4 @@ void loop() {
       sendMMC(1, (uint8_t*)"\x02"); // Play
     }
   }
-
-  while (usbMIDI.read()) {} // ignore incoming messages
 }
