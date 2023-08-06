@@ -135,7 +135,7 @@ char const* string_desc_arr [] =
 {
   (const char[]) { 0x09, 0x04 }, // 0: is supported language is English (0x0409)
   "PDB",                         // 1: Manufacturer
-  "MPCFootswitch",               // 2: Product
+  "Footswitch",                  // 2: Product
   serial,                        // 3: Serials, uses the flash ID
 };
 
