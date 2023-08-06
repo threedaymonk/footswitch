@@ -15,18 +15,13 @@ Adafruit_USBD_MIDI usb_midi;
 MIDI_CREATE_INSTANCE(Adafruit_USBD_MIDI, usb_midi, MIDI);
 
 void setup() {
+  TinyUSBDevice.setProductDescriptor("MPC Foot Controller");
+  MIDI.begin(MIDI_CHANNEL_OMNI);
+
   buttons[0] = new Button(BUTTON_1);
   buttons[1] = new Button(BUTTON_2);
   buttons[2] = new Button(BUTTON_3);
   buttons[3] = new Button(BUTTON_4);
-
-  pinMode(BOARD_LED, OUTPUT);
-  digitalWrite(BOARD_LED, HIGH); delay(400);
-  digitalWrite(BOARD_LED, LOW);  delay(200);
-  digitalWrite(BOARD_LED, HIGH); delay(400);
-  digitalWrite(BOARD_LED, LOW);
-
-  MIDI.begin(MIDI_CHANNEL_OMNI);
 }
 
 void sendMMC(uint16_t length, uint8_t* msg) {
