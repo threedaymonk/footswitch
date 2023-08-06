@@ -1,34 +1,42 @@
 #include "Button.h"
 
-Button::Button(int pin) {
-  pinMode(pin, INPUT_PULLUP);
-  debouncer = new Bounce(pin, DEBOUNCE_DELAY);
+Button::Button(uint pin) {
+  gpio = pin;
+  gpio_set_pulls(gpio, 1, 0); // pull up
+  debouncer = new Debouncer(NUM_BUTTON_STATES);
   pressedAt = 0;
   isActive = false;
   isLongPress = false;
 }
 
 bool Button::update() {
-  bool didChange;
+  bool didChange = false;
   isLongPress = false;
-  didChange = debouncer->update();
-  if (debouncer->fell()) {
-    pressedAt = millis();
+
+  debouncer->ButtonProcess(gpio_get(gpio));
+
+  if (debouncer->ButtonPressed(BUTTON_PIN_0)) {
+    pressedAt = board_millis();
     isActive = true;
+    didChange = true;
   }
-  if (debouncer->rose()) {
+
+  if (debouncer->ButtonReleased(BUTTON_PIN_0)) {
     isActive = false;
+    didChange = true;
   }
-  if (isActive && (millis() - pressedAt) > LONG_PRESS) {
+
+  if (isActive && (board_millis() - pressedAt) > LONG_PRESS) {
     isActive = false;
     isLongPress = true;
     didChange = true;
   }
+
   return didChange;
 }
 
 bool Button::wasPressed() {
-  return debouncer->fell();
+  return debouncer->ButtonPressed(BUTTON_PIN_0);
 }
 
 bool Button::wasLongPressed() {
