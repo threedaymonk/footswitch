@@ -3,7 +3,7 @@
 Button::Button(uint pin) {
   gpio = pin;
   gpio_set_pulls(gpio, 1, 0); // pull up
-  debouncer = new Debouncer(NUM_BUTTON_STATES);
+  debouncer = new Debouncer(BUTTON_PIN_0);
   pressedAt = 0;
   isActive = false;
   isLongPress = false;

@@ -5,6 +5,8 @@
 #ifndef Button_h
 #define Button_h
 
+const uint LONG_PRESS = 250;
+
 class Button {
 public:
   Button(uint pin);
@@ -18,7 +20,6 @@ private:
   bool isActive;
   bool isLongPress;
   uint gpio;
-  const uint LONG_PRESS = 250;
 };
 
 #endif
