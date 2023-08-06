@@ -33,7 +33,7 @@ int main() {
   }
 }
 
-void sendMMC(uint16_t length, uint8_t* msg) {
+void send_mmc(uint16_t length, uint8_t* msg) {
   static uint8_t buffer[20] = { 0xf0, 0x7f, 0x7f, 0x06 };
 
   memcpy(buffer + 4, msg, length);
@@ -41,43 +41,59 @@ void sendMMC(uint16_t length, uint8_t* msg) {
   tud_midi_n_stream_write(0, 0, buffer, length + 5);
 }
 
+void mmc_stop() {
+  send_mmc(1, (uint8_t*)"\x01");
+}
+
+void mmc_locate_zero() {
+  send_mmc(8, (uint8_t*)"\x44\x06\x01\x00\x00\x00\x00\x00");
+}
+
+void mmc_play() {
+  send_mmc(1, (uint8_t*)"\x02");
+}
+
+void mmc_record() {
+  send_mmc(1, (uint8_t*)"\x06");
+}
+
 void poll_buttons() {
   static uint32_t last_polled_at = 0;
 
-  if (board_millis() - last_polled_at < POLL_INTERVAL_MS) return;
+  if (board_millis() - last_polled_at < 1) return;
 
   last_polled_at = board_millis();
 
   // REC
   if (buttons[0]->update()) {
     if (buttons[0]->wasPressed()) {
-      sendMMC(1, (uint8_t*)"\x06"); // Record
+      mmc_record();
     }
   }
 
   // PLAY START
   if (buttons[1]->update()) {
     if (buttons[1]->wasPressed()) {
-      sendMMC(1, (uint8_t*)"\x01"); // Stop
-      sendMMC(8, (uint8_t*)"\x44\x06\x01\x00\x00\x00\x00\x00"); // Locate zero
-      sendMMC(1, (uint8_t*)"\x02"); // Play
+      mmc_stop();
+      mmc_locate_zero();
+      mmc_play();
     }
   }
 
   // STOP
   if (buttons[2]->update()) {
     if (buttons[2]->wasPressed()) {
-      sendMMC(1, (uint8_t*)"\x01"); // Stop
+      mmc_stop();
     }
     if (buttons[2]->wasLongPressed()) {
-      sendMMC(8, (uint8_t*)"\x44\x06\x01\x00\x00\x00\x00\x00"); // Locate zero
+      mmc_locate_zero();
     }
   }
 
   // PLAY
   if (buttons[3]->update()) {
     if (buttons[3]->wasPressed()) {
-      sendMMC(1, (uint8_t*)"\x02"); // Play
+      mmc_play();
     }
   }
 }
