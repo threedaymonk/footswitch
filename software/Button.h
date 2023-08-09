@@ -1,24 +1,25 @@
-#include <Arduino.h>
-#include <Bounce2.h>
+#include "button_debounce.h"
+#include "hardware/gpio.h"
+#include "bsp/board.h"
 
 #ifndef Button_h
 #define Button_h
 
-#define DEBOUNCE_DELAY 10
-#define LONG_PRESS 250
+const uint LONG_PRESS = 250;
 
 class Button {
 public:
-  Button(int pin);
+  Button(uint pin);
   bool update();
   bool wasPressed();
   bool wasLongPressed();
 
 private:
-  Bounce *debouncer;
+  Debouncer *debouncer;
   long pressedAt;
   bool isActive;
   bool isLongPress;
+  uint gpio;
 };
 
 #endif

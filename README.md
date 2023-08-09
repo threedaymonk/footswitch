@@ -1,7 +1,7 @@
 # MIDI footswitch
 
-This implements a USB MIDI footswitch on a Teensy 2.0. It is configured to
-control an AKAI MPC X/Live/Live II/One/Touch.
+This implements a USB MIDI footswitch on a Raspberry Pi Pico micrcontroller. It
+is configured to control an AKAI MPC X/Live/Live II/One/Touch.
 
 For pictures and details, see the [corresponding blog
 post](https://po-ru.com/2020/08/03/diy-usb-midi-footswitch).
@@ -19,56 +19,38 @@ post](https://po-ru.com/2020/08/03/diy-usb-midi-footswitch).
 
 #### Prerequisites
 
-- avr-gcc
-- [teensy_loader_cli](https://github.com/PaulStoffregen/teensy_loader_cli)
+- [Raspberry Pi Pico SDK](https://github.com/raspberrypi/pico-sdk)
+- cmake
 - OpenSCAD (if 3D printing the hardware)
 
 #### Build
+
+In the `software` directory, run `cmake` to generate `Makefile`
+
+    PICO_SDK_PATH=/path/to/sdk cmake
 
 To build the code
 
     make
 
-To program the device
+To program the device:
 
-    make program
-
-### Compiling and uploading with the Arduino IDE
-
-#### Prerequisites
-
-- [Arduino IDE](https://www.arduino.cc/en/software)
-- [Teensyduino](https://www.pjrc.com/teensy/td_download.html)
-
-#### Build
-
-Open `footswitch.ino`. Don't worry that it's empty: the Arduino IDE just
-compiles everything.
-
-Set the board type to "Teensy 2.0" and the USB type to MIDI.
-
-Attach the Teensy via USB and click the upload button.
+- Hold down the button on the Pico board while plugging in the device.
+- Copy the `.uf2` file to the device.
 
 ## Hardware
 
-Four footswitches share a common connection to ground (pin 1). The other
-terminal of each is connected to B0-B3 (pins 2-5) respectively. The code can be adjusted
-for more or fewer switches.
+Four footswitches share a common connection to ground (pin 3). The other
+terminal of each is connected to GP0-GP3 (pins 1, 2, 4 and 5) respectively.
+The code can be adjusted for more or fewer switches.
 
 ### BOM
 
 - Hammond 1590XX enclosure
 - 4 momentary push-to make footswitches
-- Teensy 2.0
-- Panel-mount USB B socket to USB A socket
-- Short USB A to micro USB cable
-
-You'll also need wire, and if you use the 3D-printed bracket below, sticky
-fixers and a thin cable tie. If you're not using the bracket, you'll have to
-figure out your own method of mounting the Teensy.
-
-It's possible to skip the micro USB cable and solder the USB connection
-directly to the Teensy.
+- Raspberry Pi Pico
+- Panel-mount USB B socket micro USB cable
+- 4 M2 × 5mm pan head self-tapping screws
 
 ### Switch connections
 
@@ -76,7 +58,22 @@ directly to the Teensy.
 
 ### 3D-printed components
 
-OpenSCAD models for washers and a bracket to hold the microcontroller are
-included in the `hardware` directory. To build the STL files:
+OpenSCAD models for a bezel to surround the socket, a bracket to hold the
+microcontroller, and a couple of tools to help line up the switches and feet
+are included in the `hardware` directory. To build the STL files, run `make` in
+the `hardware` directory.
 
-    make 3d
+The parts are as follows:
+
+- `foot-aligner.scad` -- a corner bracket to facilitate aligning sticky feet
+  consistently with the corner of the enclosure.
+- `pico-mount.scad` -- a frame that is held in place by the footswitches, to
+  which the Pico may be screwed with M2 × 5mm self-tapping screws.
+- `switch-spacer.scad` -- helps with offsetting the lower nut on footswitches
+  so that they protrude a consistent distance above the top. May require
+  variation for your switches.
+- `usb-bezel.scad` -- a bezel to allow fitting the USB B socket by drilling
+  only round holes. May require adjustment for your socket.
+- `usb-drill-template` -- drill straight through this to get consistent, even
+  holes for mounting the USB socket. May require adjustment for different
+  sockets.
