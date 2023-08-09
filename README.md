@@ -1,6 +1,6 @@
 # MIDI footswitch
 
-This implements a USB MIDI footswitch on a Raspberry Pi Pico micrcontroller. It
+This implements a USB MIDI footswitch on a Raspberry Pi Pico microcontroller. It
 is configured to control an AKAI MPC X/Live/Live II/One/Touch.
 
 For pictures and details, see the [corresponding blog
