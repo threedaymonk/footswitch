@@ -1,0 +1,26 @@
+on:
+  push:
+    tags:
+      - "v*"
+
+name: "Create release"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Create release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Build hardware and software
+        uses: ./
+
+      - name: Release
+        uses: fnkr/github-action-ghr@v1
+        env:
+          GHR_PATH: release.zip
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

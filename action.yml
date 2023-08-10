@@ -1,0 +1,6 @@
+# action.yml
+name: "build"
+description: "Build software and hardware files"
+runs:
+  using: "docker"
+  image: "Dockerfile"
