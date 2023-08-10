@@ -17,6 +17,9 @@ post](https://po-ru.com/2020/08/03/diy-usb-midi-footswitch).
 
 ### Compiling and uploading with Make
 
+If you want to use this firmware without modification, you can download a
+compiled `.uf2` file in `release.zip` in the Releases section on GitHub.
+
 #### Prerequisites
 
 - [Raspberry Pi Pico SDK](https://github.com/raspberrypi/pico-sdk)
@@ -58,6 +61,9 @@ The code can be adjusted for more or fewer switches.
 
 ### 3D-printed components
 
+If you want to use these without modification, you can download generated STL
+files in `release.zip` in the Releases section on GitHub.
+
 OpenSCAD models for a bezel to surround the socket, a bracket to hold the
 microcontroller, and a couple of tools to help line up the switches and feet
 are included in the `hardware` directory. To build the STL files, run `make` in
@@ -74,6 +80,6 @@ The parts are as follows:
   variation for your switches.
 - `usb-bezel.scad` -- a bezel to allow fitting the USB B socket by drilling
   only round holes. May require adjustment for your socket.
-- `usb-drill-template` -- drill straight through this to get consistent, even
+- `usb-drill-template.scad` -- drill straight through this to get consistent, even
   holes for mounting the USB socket. May require adjustment for different
   sockets.
